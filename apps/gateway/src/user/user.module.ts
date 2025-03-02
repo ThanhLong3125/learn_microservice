@@ -15,6 +15,18 @@ import { join } from 'path';
         url: 'localhost:50051',
       },
   },
+  {
+    name: 'KAFKA_SERVICE',
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        brokers: ['localhost:9092'],
+      },
+      consumer: {
+        groupId: 'gateway-group'
+      }
+    }
+  }
 ])],
   providers: [UserService],
   controllers: [UserController],

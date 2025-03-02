@@ -4,7 +4,10 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(UserModule, {
+  const app = await NestFactory.create(UserModule);
+
+  // Kết nối gRPC microservice
+  app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
       package: 'user',
@@ -12,6 +15,21 @@ async function bootstrap() {
       url: 'localhost:50051',
     },
   });
-  await app.listen();
+
+  // Kết nối Kafka microservice
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        brokers: ['localhost:9092'],
+      },
+      consumer: {
+        groupId: 'user-group',
+      },
+    },
+  });
+
+  await app.startAllMicroservices();
 }
+
 bootstrap();
