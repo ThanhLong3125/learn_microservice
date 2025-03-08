@@ -37,7 +37,22 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/microservices-e2e/**/*"]
+      "exclude": [
+        "apps/gateway-e2e/**/*",
+        "apps/user-e2e/**/*"
+      ]
     }
-  ]
+  ],
+  "targetDefaults": {
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    }
+  },
+  "release": {
+    "version": {
+      "preVersionCommand": "yarn nx run-many -t build"
+    }
+  }
 }

@@ -1,0 +1,1 @@
+export * from './userGRPC.interface';
