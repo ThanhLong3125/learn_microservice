@@ -1,8 +1,16 @@
+import { IsDate, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+
 export class User {
-    id: number;
+    @IsString()
+    @ApiProperty()
     name: string;
-    constructor(id: number, name: string) {
-        this.id = id;
-        this.name = name;
-    }
+
+    @IsDate()
+    @ApiProperty()
+    birthday: Date;
+
+    @IsString()
+    @ApiProperty()
+    address: string;
 }

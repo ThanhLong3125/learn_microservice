@@ -15,13 +15,8 @@ export class UserService implements OnModuleInit {
   }
 
 async createUser(data: CreateUserDto) {
-    const user = await firstValueFrom(this.userServiceGrpc.createUser(data));
-    this.kafkaClient.emit('user.notify', user);
-    
-    return {
-            id: Number(user.id),
-            name: user.name,
-    }
+    this.kafkaClient.emit('user.notify', data.name);
+    return await firstValueFrom(this.userServiceGrpc.createUser(data))
 }
 }
 

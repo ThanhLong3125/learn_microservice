@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
+import { AppModule } from './app/user.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 
@@ -25,6 +25,7 @@ async function bootstrap() {
       },
       consumer: {
         groupId: 'user-group',
+        allowAutoTopicCreation: true,
       },
     },
   });

@@ -7,10 +7,12 @@ service UserService {
 }
 
 message Request {
-    string name = 1;
+  string name = 1;
+  string birthday = 2;
+  string address = 3;
+
 }
 
 message Response {
-    int64 id = 1;
-    string name = 2;
+  string message = 1;
 }
